@@ -131,9 +131,10 @@
 Use this latex file as a template to develop your homework. Submit your homework on time as a single pdf file to Canvas. Please wrap your code and upload to a public GitHub repo, then attach the link below the instructions so that we can access it. You can choose any programming language (i.e. python, R, or MATLAB), as long as you implement the algorithm from scratch (e.g. do not use sklearn on questions 1 to 7 in section 2). Please check Piazza for updates about the homework.\\
 
 \begin{soln}
-  \Large
-  \href{https://github.com/cybr17crwlr/ECE-760-Machine-Learning-Assignments/tree/master/Homework%202}{Homework 2 Github Link}
+    \Large
+    \href{https://github.com/cybr17crwlr/ECE-760-Machine-Learning-Assignments/tree/master/Homework%202}{Homework 2 Github Link}
 \end{soln}
+
 
 \section{A Simplified Decision Tree}
 You are to implement a decision-tree learner for classification.
@@ -219,18 +220,18 @@ You should (1) plot your training set, (2) explain why.  Hint: you don't need mo
             \hline
         \end{tabular}
     \end{minipage}\\
-    Now we know our algorithm splits using a linear boundary along one of the dimensions. Thus for our dataset, any linear boundary results in zero information gain.\\ Lets split along a point $c \in \{0,1\}$ such that $x_1 \geq c$
+    Now we know our algorithm splits using a linear boundary along one of the dimensions. Thus for our dataset, any linear boundary results is zero information gain.\\ Lets split along a point $c \in \{0,1\}$ such that $x_1 \geq c$
     \begin{gather*}
         H(x_1,x_2) = 1/2\log{2}+1/2\log{2} = \log{2}\\
         H(x_1,x_2/x_1\geq c) = 1/2(1/2\log{2}+1/2\log{2}) + 1/2(1/2\log{2}+1/2\log{2}) = \log{2}\\
         \text{Info Gain} = H(x_1,x_2) - H(x_1,x_2/x_1\geq c) = 0
     \end{gather*}\\
-   The same can be shown for $x_2$ as the dataset is symmetric. This eventually means that we end up in such a situation as the above example for a dataset without a single linear boundary and no correlation between the variables.
+   The same can be shown for $x_2$ as the dataset is symmetric. This eventually means that we end up in a situation, such as the above example, for a dataset without a single linear boundary and no correlation between the variables.
 
-    It's also easy to note that if we force a split, then in the later stages, the algorithm with continue splitting as it gets a positive information gain boundary after any forced split. For example, in the above split, we can see that each node can now be split easily using $x_2$ to produce a tree with zero transformation error.
+    It's also easy to note that if we force a split, then in the later stages, the algorithm with continue splitting as it gets a positive information gain boundary after any forced split. For example, in the above split, we can see that each node can now be split easily using $x_2$ to produce a tree with zero error.
 \end{soln}
 
-\item (Information gain ratio exercise)  [10 pts] Use the training set Druns.txt.  For the root node, list all candidate cuts and their information gain ratio. If the entropy of the candidate split is zero, please list its mutual information (i.e. information gain). Hint: to get $\log_2(x)$ when your programming language may be using a different base, use \verb|log(x)/log(2)|. Also, please follow the split rule in the first section. \\
+\item (Information gain ratio exercise)  [10 pts] Use the training set \texttt{Druns.txt}.  For the root node, list all candidate cuts and their information gain ratio. If the entropy of the candidate split is zero, please list its mutual information (i.e. information gain). Hint: to get $\log_2(x)$ when your programming language may be using a different base, use \verb|log(x)/log(2)|. Also, please follow the split rule in the first section. \\
 \begin{soln}
     \begin{tabular}{|c|c|c|c|}
         \hline
