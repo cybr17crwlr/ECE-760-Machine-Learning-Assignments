@@ -32,6 +32,7 @@
 \usepackage{algpseudocode}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{svg}
 
 
 \urlstyle{rm}
@@ -115,8 +116,8 @@
 %%% NOTE:  Replace 'NAME HERE' etc., and delete any "\red{}" wrappers (so it won't show up as red)
 
 \author{
-	\red{$>>$NAME HERE$<<$} \\
-	\red{$>>$ID HERE$<<$}\\
+	\red{APOORVA KUMAR} \\
+	\red{908 461 5997}\\
 } 
 
 \date{}
@@ -165,7 +166,7 @@
 		
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.7\textwidth]{gan_q1_loss.png}
+			\includegraphics[width=0.7\textwidth]{Images/Base/gan_q1_loss.png}
 			\caption{Learning curve}
 			\label{fig:gan_q1_loss}
 		\end{figure}
@@ -174,19 +175,19 @@
 			\centering
 			\begin{subfigure}[b]{0.3\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{gan_q1_epoch1.png}
+				\includegraphics[width=\textwidth]{Images/Base/gan_q1_epoch1.png}
 				\caption{epoch 1}
 			\end{subfigure}
 			\hfill
 			\begin{subfigure}[b]{0.3\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{gan_q1_epoch50.png}
+				\includegraphics[width=\textwidth]{Images/Base/gan_q1_epoch50.png}
 				\caption{epoch 50}
 			\end{subfigure}
 			\hfill
 			\begin{subfigure}[b]{0.3\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{gan_q1_epoch100.png}
+				\includegraphics[width=\textwidth]{Images/Base/gan_q1_epoch100.png}
 				\caption{epoch 100}
 			\end{subfigure}
 			\caption{Generated images by $G$}
@@ -194,7 +195,37 @@
 		\end{figure}
 		
 		
-		\begin{soln}  Solution goes here. Attach your learning curve and images. \end{soln}
+		\begin{soln}
+                Solution begins here:
+                \begin{figure}[H]
+    			\centering
+    			\includegraphics[width=0.6\textwidth]{Images/Q1/Q1a_train.png}
+    			\caption{Solution Learning curve}
+    			\label{fig:gan_q1a_loss}
+    		\end{figure}
+                \begin{figure}[H]
+    			\centering
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1a_1.png}
+    				\caption{Epoch 1}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1a_50.png}
+    				\caption{Epoch 50}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1a_100.png}
+    				\caption{Epoch 100}
+    			\end{subfigure}
+    			\caption{Solution Generated images by $G$}
+    			\label{fig:sol1a graphs}
+    		\end{figure} 
+            \end{soln}
 		
 		
 		
@@ -206,12 +237,74 @@
 		, and report learning curves and generated images in epoch 1, 50, 100. Compare the result with (a). Note that it may not work. If training does not work, explain why it doesn't work.
 		\hfill (10 pts)
 		
-		\begin{soln}  Solution goes here. Attach your learning curve and images. \end{soln}
+		\begin{soln}  
+                Here we see that the training doesn't work because the gradients start to saturate early during the training causing the Discriminator to reject every sample out of the Generator because of how the loss function works. In part (a) we maximize $\log{D(G(z))}$ which provides us with enough opposite directional gradient during early training for the Generator to move in the right direction. On the other hand during the training of this part we see that loss function can be brought down easily just by the Discriminator thus providing no gradient to the Generator to learn anything. The same can also be seen on the learning curve which hits zero instantaneously. 
+                \begin{figure}[H]
+    			\centering
+    			\includegraphics[width=0.6\textwidth]{Images/Q1/Q1b_train.png}
+    			\caption{Solution Learning curve}
+    			\label{fig:gan_q1b_loss}
+    		\end{figure}
+                \begin{figure}[H]
+    			\centering
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1b_1.png}
+    				\caption{Epoch 1}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1b_50.png}
+    				\caption{Epoch 50}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1b_100.png}
+    				\caption{Epoch 100}
+    			\end{subfigure}
+    			\caption{Solution Generated images by $G$}
+    			\label{fig:sol1b graphs}
+    		\end{figure}
+            \end{soln}
 		
 		\item Except the method that we used in (a), how can we improve training for GAN? Implement that and report your setup, learning curves, and generated images in epoch 1, 50, 100.
 		\hfill (5 pts)
 		
-		\begin{soln}  Solution goes here. Attach your learning curve and images. \end{soln}
+		  \begin{soln}  
+                We know that the main task of Generator is to fool the Discriminator into thinking its a true sample. Due to the way neural networks work its very easy to learn certain feature relation to classify and make decisions while neglecting other features in the set. The Generator can easily exploit this issue and build a model which achieves this relation without caring about the values of the other features. Thus our major task is to make the Discriminator more robust which inturn will make the Generator better. In an attempt to achieve this I set the true labels to 0.5 rather than 1 with a probability of 0.4 confusing the Discriminator. Its like an implicit dropout to force the Discriminator to learn better and make better connections. While this might result in a worse learning curve the output of the Generator can be seen to be much better than part (a).
+
+                \begin{figure}[H]
+    			\centering
+    			\includegraphics[width=0.6\textwidth]{Images/Q1/Q1c_train.png}
+    			\caption{Solution Learning curve}
+    			\label{fig:gan_q1c_loss}
+    		\end{figure}
+                \begin{figure}[H]
+    			\centering
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1c_1.png}
+    				\caption{Epoch 1}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1c_50.png}
+    				\caption{Epoch 50}
+    			\end{subfigure}
+    			\hfill
+    			\begin{subfigure}[b]{0.3\textwidth}
+    				\centering
+    				\includegraphics[width=\textwidth]{Images/Q1/Q1c_100.png}
+    				\caption{Epoch 100}
+    			\end{subfigure}
+    			\caption{Solution Generated images by $G$}
+    			\label{fig:sol1c graphs}
+    		\end{figure}
+  
+            \end{soln}
 		
 	\end{enumerate}
 
@@ -244,7 +337,19 @@
 		$$
 		\hfill (5 pts)
 		
-		\begin{soln}  Solution goes here. \end{soln}
+		\begin{soln}
+                $$x=\frac{1}{2}(u+v) \text{and} y=\frac{1}{2}(u-v)$$
+                \begin{align*}
+                    J =& \begin{bmatrix}
+			                 \cfrac{\frac{1}{2}\partial (u+v)}{\partial u} & \cfrac{\frac{1}{2}\partial (u+v)}{\partial v}\\
+			                 \cfrac{\frac{1}{2}\partial (u-v)}{\partial u} & \cfrac{\frac{1}{2}\partial (u-v)}{\partial v}
+		              \end{bmatrix} \\
+                    J =& \begin{bmatrix}
+			                 \cfrac{1}{2} & \cfrac{1}{2}\\
+			                 \cfrac{1}{2} & -\cfrac{1}{2}
+		              \end{bmatrix}
+                \end{align*}
+            \end{soln}
 		
 		
 		\item (Forward) Show that the joint pdf of U, V is
@@ -252,27 +357,84 @@
 		\hfill (10 pts) \\
 		(Hint: $f_{U, V}(u, v)=f_{X, Y}(?, ?)|det(J)|$) \\
 		
-		\begin{soln}  Solution goes here. \end{soln}
+		\begin{soln}
+                $$\abs{det(J)} = \abs{-\cfrac{1}{2}\cfrac{1}{2}-\cfrac{1}{2}\cfrac{1}{2}} = \cfrac{1}{2}$$
+                Thus we solve for $f_{U, V}(u, v)=\cfrac{1}{2}f_{X, Y}(\frac{1}{2}(u+v), \frac{1}{2}(u-v))$
+                \begin{align*}
+                    f_{U, V} &= \cfrac{1}{2}\frac{1}{2\pi} exp(-\frac{1}{4}(u+v)^{2}\frac{1}{2}) exp(-\frac{1}{4}(u-v)^{2}\frac{1}{2}) \\
+                    &= \cfrac{1}{4\pi} exp(-\frac{1}{8}(u^2+v^2+2uv)) exp(-\frac{1}{8}(u^2+v^2-2uv)) \\
+                    &= \cfrac{1}{4\pi} exp(-\frac{u^2}{4}) exp(-\frac{v^2}{4}) \\
+                    \mathbf{f_{U, V}} &= \mathbf{\left(\cfrac{1}{\sqrt{2}\sqrt{2\pi}}exp\left(-\frac{u^2}{4}\right)\right) \left(\cfrac{1}{\sqrt{2}\sqrt{2\pi}}exp\left(-\frac{v^2}{4}\right)\right)}
+                \end{align*}
+            \end{soln}
 		
 		\item (Inverse) Check whether the following equation holds or not.
 		$$f_{X, Y}(x, y)=f_{U, V}(x+y, x-y)|det(J)^{-1}|$$
 		
 		\hfill (10 pts) 
-		
-		\begin{soln}  Solution goes here. \end{soln}
+		  
+		\begin{soln}
+                $$\abs{det(J)^{-1}} = 2$$
+                Thus we solve for $f_{X, Y}(x, y)=2f_{U, V}(x+y, x-y)$
+                \begin{align*}
+                    f_{X, Y} &= 2\left(\cfrac{1}{\sqrt{2}\sqrt{2\pi}}exp\left(-\frac{(x+y)^2}{4}\right)\right) \left(\cfrac{1}{\sqrt{2}\sqrt{2\pi}}exp\left(-\frac{(x-y)^2}{4}\right)\right) \\
+                    &= 2\cfrac{1}{4\pi}exp\left(-\cfrac{(x+y)^2+(x-y)^2}{4}\right) \\
+                    &= \cfrac{1}{2\pi}exp\left(-\cfrac{2x^2+2y^2}{4}\right) \\
+                    &= \mathbf{\cfrac{1}{2\pi}exp\left(-\cfrac{x^2}{2}\right)exp\left(-\cfrac{y^2}{2}\right)}
+                \end{align*}
+                Hence we see that our original joint distribution was recovered.
+            \end{soln}
 	\end{enumerate}
 
 \section{Directed Graphical Model [20 points]}
 Consider the directed graphical model (aka Bayesian network) in Figure~\ref{fig:bn}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{BN.jpg}
+    \includegraphics[width=0.8\textwidth]{Images/Base/BN.jpg}
     \caption{A Bayesian Network example.}
     \label{fig:bn}
 \end{figure}
 Compute $P(B=t \mid E=f,J=t,M=t)$ and $P(B=t \mid E=t,J=t,M=t)$. (10 points for each) These are the conditional probabilities of a burglar in your house (yikes!) when both of your neighbors John and Mary call you and say they hear an alarm in your house, but without or with an earthquake also going on in that area (what a busy day), respectively.
 
-\begin{soln}  Solution goes here. \end{soln}
+\begin{soln}
+    Denote short hand notations as $B_f$ meaning $B=f$ or $E_t$ meaning $E=t$.
+    Thus using Bayes Rule we can write:
+    $$
+        P(B_t \mid E_f, J_t, M_t) = \cfrac{P(B_t,E_f,J_t,M_t)}{P(B_t,E_f,J_t,M_t)+P(B_f,E_f,J_t,M_t)}
+    $$
+    Using condition probabilities we can write:
+    \begin{multline*}
+        P(B_t,E_f,J_t,M_t)=P(B_t)P(E_f)P(A_t\mid B_t,E_f)P(J_t\mid A_t)P(M_t\mid A_t) + \\ P(B_t)P(E_f)P(A_f\mid B_t,E_f)P(J_t\mid A_f)P(M_t\mid A_f)
+    \end{multline*}
+    $$P(B_t,E_f,J_t,M_t) = 0.1*0.8*0.8*0.9*0.7 + 0.1*0.8*0.2*0.2*0.1 = 0.04032 + 0.00032 = 0.04064$$
+    \begin{multline*}
+        P(B_f,E_f,J_t,M_t)=P(B_f)P(E_f)P(A_t\mid B_f,E_f)P(J_t\mid A_t)P(M_t\mid A_t) + \\ P(B_f)P(E_f)P(A_f\mid B_f,E_f)P(J_t\mid A_f)P(M_t\mid A_f)
+    \end{multline*}
+    $$P(B_f,E_f,J_t,M_t) = 0.9*0.8*0.1*0.9*0.7 + 0.9*0.8*0.9*0.2*0.1 =0.04536+0.01296= 0.05832$$
+    \begin{align*}
+        P(B_t \mid E_f, J_t, M_t) &= \cfrac{P(B_t,E_f,J_t,M_t)}{P(B_t,E_f,J_t,M_t)+P(B_f,E_f,J_t,M_t)} \\
+        &= \cfrac{0.04064}{0.04064+0.05832} \\
+        \mathbf{P(B=t \mid E=f, J=t, M=t)} &= \mathbf{0.41067}
+    \end{align*}
+    Similarily using the same for the second equation:
+    $$
+        P(B_t \mid E_t, J_t, M_t) = \cfrac{P(B_t,E_t,J_t,M_t)}{P(B_t,E_t,J_t,M_t)+P(B_f,E_t,J_t,M_t)}
+    $$
+    Using condition probabilities we can write:
+    \begin{multline*}
+        P(B_t,E_t,J_t,M_t)=P(B_t)P(E_t)P(A_t\mid B_t,E_t)P(J_t\mid A_t)P(M_t\mid A_t) + \\ P(B_t)P(E_t)P(A_f\mid B_t,E_t)P(J_t\mid A_f)P(M_t\mid A_f)
+    \end{multline*}
+    $$P(B_t,E_t,J_t,M_t) = 0.1*0.2*0.9*0.9*0.7 + 0.1*0.2*0.1*0.2*0.1 = 0.01134 + 0.00004 = 0.01138$$
+    \begin{multline*}
+        P(B_f,E_t,J_t,M_t)=P(B_f)P(E_t)P(A_t\mid B_f,E_t)P(J_t\mid A_t)P(M_t\mid A_t) + \\ P(B_f)P(E_t)P(A_f\mid B_f,E_t)P(J_t\mid A_f)P(M_t\mid A_f)
+    \end{multline*}
+    $$P(B_f,E_t,J_t,M_t) = 0.9*0.2*0.3*0.9*0.7 + 0.9*0.2*0.7*0.2*0.1 =0.03402+0.00252= 0.03654$$
+    \begin{align*}
+        P(B_t \mid E_t, J_t, M_t) &= \cfrac{P(B_t,E_t,J_t,M_t)}{P(B_t,E_t,J_t,M_t)+P(B_f,E_t,J_t,M_t)} \\
+        &= \cfrac{0.01138}{0.01138+0.03654} \\
+        \mathbf{P(B=t \mid E=t, J=t, M=t)} &= \mathbf{0.23748}
+    \end{align*}
+\end{soln}
 
 
 \section{Chow-Liu Algorithm [25 pts]}
@@ -301,13 +463,52 @@ Suppose we wish to construct a directed graphical model for 3 features $X$, $Y$,
                                 \hline
                 \end{tabular}
 \end{table}
-
+    \begin{soln}
+        Lets first write the probabilities:
+        \begin{itemize}
+            \item $P_X(T)=0.5,P_X(F)=0.5$
+            \item $P_Y(T)=0.5,P_Y(F)=0.5$
+            \item $P_Z(T)=0.55,P_Z(F)=0.45$
+            \item $P_{X,Y}(T,T)=0.4,P_{X,Y}(T,F)=0.1,P_{X,Y}(F,T)=0.1,P_{X,Y}(F,F)=0.4$
+            \item $P_{Y,Z}(T,T)=0.45,P_{Y,Z}(T,F)=0.05,P_{Y,Z}(F,T)=0.1,P_{Y,Z}(F,F)=0.4$
+            \item $P_{X,Z}(T,T)=0.38,P_{X,Z}(T,F)=0.12,P_{X,Z}(F,T)=0.17,P_{X,Z}(F,F)=0.33$
+        \end{itemize}
+    \end{soln}
 \begin{enumerate}
 	\item Compute the mutual information $I(X, Y)$ based on the frequencies observed in the data. (5 pts)
+        \begin{soln}
+            \begin{align*}
+                I(X;Y) &= 0.4*\log_2(\frac{0.4}{0.5*0.5})+0.1*\log_2(\frac{0.1}{0.5*0.5})+0.1*\log_2(\frac{0.1}{0.5*0.5})+0.4*\log_2(\frac{0.4}{0.5*0.5}) \\
+                &= 0.27122 - 0.1322 - 0.1322 + 0.27122 = \mathbf{0.27807}
+            \end{align*}
+        \end{soln}
 	\item Compute the mutual information $I(X, Z)$ based on the frequencies observed in the data. (5 pts)
+        \begin{soln}
+            \begin{align*}
+                I(X;Z) &= 0.38*\log_2(\frac{0.38}{0.5*0.55})+0.12*\log_2(\frac{0.12}{0.5*0.45})+0.1*\log_2(\frac{0.17}{0.5*0.55})+0.4*\log_2(\frac{0.33}{0.5*0.45}) \\
+                &= 0.17729 - 0.10882 - 0.11796 + 0.18233 = \mathbf{0.13284}
+            \end{align*}
+        \end{soln}
 	\item Compute the mutual information $I(Z, Y)$ based on the frequencies observed in the data. (5 pts)
+        \begin{soln}
+            \begin{align*}
+                I(Z;Y) &= 0.45*\log_2(\frac{0.45}{0.5*0.55})+0.05*\log_2(\frac{0.05}{0.5*0.45})+0.1*\log_2(\frac{0.1}{0.5*0.55})+0.4*\log_2(\frac{0.4}{0.5*0.45}) \\
+                &= 0.31972 - 0.10849 - 0.14594 + 0.33202  = \mathbf{0.39731}
+            \end{align*}
+        \end{soln}
 	\item Which undirected edges will be selected by the Chow-Liu algorithm as the maximum spanning tree? (5 pts)
+        \begin{soln}
+            We arrange the Mutual Information in descending order as below:\\
+            $I=\{I(Z,Y),I(X,Y),I(X,Z)\}$
+            According to Chow Liu we first connect the nodes with highest Mutual Information, hence we first connect Y to Z and then Y to X and X to Z are connected already.
+            
+            \includesvg{Images/Q4_4}
+        \end{soln}
 	\item Root your tree at node $X$, assign directions to the selected edges. (5 pts)
+        
+        \begin{soln}
+            \includesvg{Images/Q4_5}
+        \end{soln}
 \end{enumerate}
 
 	\bibliography{hw6}
